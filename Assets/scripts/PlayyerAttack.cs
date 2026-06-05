@@ -13,6 +13,7 @@ public class PlayyerAttack : MonoBehaviour {
 
     private void Awake()
     {
+        // gets animator component and  player movement
         anim = GetComponent<Animator>();
         playerMovement = GetComponent<playerMovement>();
     }
