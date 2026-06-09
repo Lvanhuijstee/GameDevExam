@@ -4,6 +4,7 @@ public class EnemyProjectile : EnemyDamage
 {
     [SerializeField] private float speed;
     [SerializeField] private float resetTime;
+    [SerializeField] private bool verticalArrow;
     private float lifeTime;
     public void ActivateProjectile() {
         lifeTime = 0;
@@ -13,18 +14,26 @@ public class EnemyProjectile : EnemyDamage
     private void Update()
     {
         float movementSpeed = speed * Time.deltaTime;
-        transform.Translate(movementSpeed,0,0);
+       
+             transform.Translate(movementSpeed, 0, 0);
 
-        lifeTime += Time.deltaTime;
+            lifeTime += Time.deltaTime;
 
-        if (lifeTime > resetTime) { 
-        gameObject.SetActive(false);
-        }
+            if (lifeTime > resetTime) { 
+             gameObject.SetActive(false);
+            }
+
+
+       
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        gameObject.SetActive(false); //deactivates arrow on hit 
+        if (collision.tag != "Enemy")
+        {
+            gameObject.SetActive(false); //deactivates arrow on hit 
+        }
     }
 }

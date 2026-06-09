@@ -6,6 +6,9 @@ public class Arrowtrap : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject[] arrows;
+    [SerializeField] private float startDelay;
+    
+    private float CompleteCooldown;
     private float cooldownTimer;
     private void Attack() {
         cooldownTimer = 0;
@@ -24,12 +27,14 @@ public class Arrowtrap : MonoBehaviour
     }
 
     private void Update()
-    {
+    { 
         cooldownTimer += Time.deltaTime;
-
-        if (cooldownTimer > attackCooldown)
+        
+        CompleteCooldown = attackCooldown + startDelay;
+        if (cooldownTimer > CompleteCooldown)
         {
             Attack();
-        }
+            startDelay = 0;
+        }       
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField] private Behaviour[] components;
+
     [Header ("Health")] 
     [SerializeField] private float startingHealth;
     public float currentHealth;
@@ -37,12 +39,18 @@ public class Health : MonoBehaviour
         }
         else
         {
-            if (!dead) { 
-            
-            // player dead
-            anim.SetTrigger("die");
-            GetComponent<playerMovement>().enabled = false;
-                dead = true;
+            if (!dead) {
+
+                //Deactivate all attached component classes
+                foreach (Behaviour component in components) {
+                    component.enabled = false;
+
+                    anim.SetBool("grounded", true);
+                    anim.SetTrigger("die");
+
+                    dead = true;
+                }
+                   
             }
         }
     }
@@ -61,5 +69,20 @@ public class Health : MonoBehaviour
             yield return new WaitForSeconds(iFrameDuration / (counter * 2));
         }
         Physics2D.IgnoreLayerCollision(8, 9, false);
+    }
+
+    public void RespawnSet() {
+        dead = false;
+        addHealth(startingHealth);
+        anim.ResetTrigger("die"); 
+        anim.Play("idle");
+
+        // reactivate all attached components
+        foreach (Behaviour component in components)
+        {
+            component.enabled = true;
+
+        }
+
     }
 }
