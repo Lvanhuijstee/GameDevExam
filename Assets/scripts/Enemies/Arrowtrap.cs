@@ -12,7 +12,7 @@ public class Arrowtrap : MonoBehaviour
     private float cooldownTimer;
     private void Attack() {
         cooldownTimer = 0;
-
+        // find an inactive arrow in the pool and activate it
         arrows[FindArrow()].transform.position = firePoint.position;
         arrows[FindArrow()].GetComponent<EnemyProjectile>().ActivateProjectile();
     }

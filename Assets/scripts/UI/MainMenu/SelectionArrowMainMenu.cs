@@ -38,7 +38,7 @@ public class SelectionArrowMainMenu : MonoBehaviour
     {
         currentPos += _change;
 
-
+        // change position of the arrow and loop through options if we go out of bounds
         if (currentPos < 0)
         {
             currentPos = options.Length - 1;
